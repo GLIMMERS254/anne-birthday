@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy 21st Birthday, Anne Kabby 💜</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dp: #1a0533;
+    --dk: #2e0b52;
+    --md: #6d28d9;
+    --lt: #9f56f0;
+    --pl: #ddd6fe;
+    --gd: #f0c040;
+    --gd2: #fde68a;
+    --tx: #ede9fe;
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    background:var(--dp);
+    color:#fff;
+    font-family:'DM Sans',sans-serif;
+    overflow-x:hidden;
+    cursor:none;
+  }
+
+  /* CURSOR */
+  #cursor {
+    width:18px; height:18px; border:2px solid var(--lt); border-radius:50%;
+    position:fixed; pointer-events:none; z-index:9999;
+    transform:translate(-50%,-50%); transition:transform 0.12s;
+  }
+
+  /* PARTICLES */
+  #particle-canvas { position:fixed; inset:0; pointer-events:none; z-index:0; }
+
+  /* NAV */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:500;
+    background:rgba(26,5,51,0.9); backdrop-filter:blur(16px);
+    display:flex; justify-content:center; gap:6px; flex-wrap:wrap;
+    padding:10px 16px;
+    border-bottom:1px solid rgba(157,56,240,0.25);
+  }
+  nav a {
+    color:var(--pl); text-decoration:none; font-size:11px; font-weight:500;
+    padding:6px 14px; border-radius:20px; letter-spacing:1.5px; text-transform:uppercase;
+    border:1px solid rgba(157,56,240,0.35); transition:all 0.3s;
+  }
+  nav a:hover { background:var(--md); color:#fff; border-color:var(--md); }
+
+  /* HERO */
+  #hero {
+    min-height:100vh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    text-align:center; padding:100px 24px 80px;
+    position:relative; overflow:hidden;
+  }
+  .hero-glow {
+    position:absolute; width:700px; height:700px; border-radius:50%;
+    background:radial-gradient(circle,rgba(109,40,217,0.28) 0%,transparent 70%);
+    top:50%; left:50%; transform:translate(-50%,-50%);
+    animation:pulse-glow 4s ease-in-out infinite; pointer-events:none;
+  }
+  @keyframes pulse-glow {
+    0%,100%{opacity:0.6;transform:translate(-50%,-50%) scale(1)}
+    50%{opacity:1;transform:translate(-50%,-50%) scale(1.18)}
+  }
+  .hero-content { position:relative; z-index:2; }
+  .hero-tag {
+    display:inline-block; font-size:11px; letter-spacing:4px; text-transform:uppercase;
+    color:var(--gd); padding:6px 22px; border:1px solid rgba(240,192,64,0.35);
+    border-radius:30px; margin-bottom:28px; animation:fade-up 1s ease both;
+  }
+  .hero-name {
+    font-family:'Cormorant Garamond',serif; font-weight:600; line-height:1;
+    font-size:clamp(54px,15vw,124px);
+    background:linear-gradient(145deg,#ddd6fe 10%,#9f56f0 45%,#f0c040 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    animation:fade-up 1s 0.2s ease both;
+  }
+  .hero-sub {
+    font-family:'Cormorant Garamond',serif; font-style:italic;
+    font-size:clamp(18px,4vw,28px); color:var(--pl);
+    margin:18px 0 12px; animation:fade-up 1s 0.4s ease both;
+  }
+  .hero-quote {
+    font-family:'Cormorant Garamond',serif; font-style:italic;
+    font-size:clamp(15px,3vw,22px); color:var(--gd2);
+    max-width:560px; margin:0 auto 24px; line-height:1.85;
+    animation:fade-up 1s 0.6s ease both;
+  }
+  .hero-since {
+    font-size:12px; color:rgba(221,214,254,0.5); letter-spacing:3px; text-transform:uppercase;
+    animation:fade-up 1s 0.8s ease both;
+  }
+  @keyframes fade-up { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+  .scroll-hint {
+    position:absolute; bottom:28px; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:5px;
+    opacity:0.35; animation:sb 2s ease-in-out infinite; z-index:2;
+  }
+  .scroll-hint span { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--pl); }
+  .scroll-hint svg { width:18px; fill:none; stroke:var(--pl); stroke-width:2; }
+  @keyframes sb { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+
+  /* SECTION WRAPPERS */
+  .section-wrap { max-width:1060px; margin:0 auto; padding:90px 24px; position:relative; z-index:2; }
+  .section-head { text-align:center; margin-bottom:56px; }
+  .section-head h2 {
+    font-family:'Cormorant Garamond',serif; font-size:clamp(32px,6vw,52px); font-weight:600;
+    background:linear-gradient(120deg,var(--pl),var(--gd));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    margin-bottom:10px;
+  }
+  .section-head p { color:rgba(221,214,254,0.5); font-size:12px; letter-spacing:2.5px; text-transform:uppercase; }
+  .rule { height:1px; background:linear-gradient(90deg,transparent,rgba(157,56,240,0.6),transparent); max-width:220px; margin:18px auto 0; }
+
+  /* ── PHOTOS — 6 GRID ── */
+  .photos-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    grid-template-rows:auto auto;
+    gap:18px;
+  }
+  .photo-card {
+    border-radius:20px; overflow:hidden;
+    border:1px solid rgba(157,56,240,0.3);
+    position:relative; aspect-ratio:4/5;
+    background:rgba(46,11,82,0.55);
+    transition:transform 0.4s, box-shadow 0.4s;
+  }
+  .photo-card:hover { transform:translateY(-7px) scale(1.02); box-shadow:0 22px 55px rgba(109,40,217,0.45); }
+  .photo-card img {
+    width:100%; height:100%; object-fit:cover; display:block;
+    transition:transform 0.5s;
+  }
+  .photo-card:hover img { transform:scale(1.08); }
+  /* make the 4th card span 2 columns for variety */
+  .photo-card.wide { grid-column:span 2; aspect-ratio:16/9; }
+  .photo-overlay {
+    position:absolute; inset:0;
+    background:linear-gradient(0deg,rgba(26,5,51,0.88) 0%,transparent 55%);
+    display:flex; flex-direction:column; justify-content:flex-end;
+    padding:20px; opacity:0; transition:opacity 0.35s;
+  }
+  .photo-card:hover .photo-overlay { opacity:1; }
+  .photo-overlay h3 { font-family:'Cormorant Garamond',serif; font-size:18px; color:var(--gd2); margin-bottom:4px; }
+  .photo-overlay p { font-size:12px; color:rgba(221,214,254,0.82); line-height:1.6; }
+  /* always-visible label at bottom */
+  .photo-label {
+    position:absolute; bottom:0; left:0; right:0;
+    padding:14px 16px;
+    background:linear-gradient(0deg,rgba(26,5,51,0.82),transparent);
+  }
+  .photo-label h3 { font-family:'Cormorant Garamond',serif; font-size:16px; color:var(--gd2); }
+
+  /* ── MEMORIES ── */
+  .memories-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:22px; }
+  .mem-card {
+    background:linear-gradient(145deg,rgba(46,11,82,0.65),rgba(26,5,51,0.8));
+    border:1px solid rgba(157,56,240,0.3); border-radius:22px;
+    padding:30px 26px; position:relative; overflow:hidden;
+    transition:transform 0.35s, box-shadow 0.35s;
+  }
+  .mem-card::after {
+    content:''; position:absolute; top:-40px; right:-40px;
+    width:120px; height:120px; border-radius:50%;
+    background:radial-gradient(circle,rgba(109,40,217,0.18),transparent 70%);
+    pointer-events:none;
+  }
+  .mem-card:hover { transform:translateY(-6px); box-shadow:0 18px 48px rgba(109,40,217,0.32); }
+  .mem-emoji { font-size:34px; margin-bottom:14px; display:block; }
+  .mem-title { font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--pl); margin-bottom:10px; font-weight:600; }
+  .mem-text { font-size:14px; color:rgba(221,214,254,0.72); line-height:1.85; }
+  .mem-date { font-size:10px; color:var(--gd); margin-top:14px; letter-spacing:2px; text-transform:uppercase; }
+
+  /* ── GIFTS ── */
+  #gifts { text-align:center; }
+  .gifts-row { display:flex; flex-wrap:wrap; gap:18px; justify-content:center; margin-bottom:36px; }
+  .gift-box {
+    width:130px; height:130px; border-radius:20px; cursor:pointer;
+    background:linear-gradient(145deg,rgba(109,40,217,0.42),rgba(46,11,82,0.75));
+    border:2px solid rgba(157,56,240,0.45);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    font-size:44px; transition:all 0.4s; user-select:none;
+  }
+  .gift-box:hover { transform:scale(1.1) rotate(2deg); border-color:var(--gd); box-shadow:0 0 28px rgba(240,192,64,0.35); }
+  .gift-box.opened { cursor:default; transform:none !important; }
+  .gift-box .box-num { font-size:10px; color:rgba(221,214,254,0.4); margin-top:4px; font-family:'DM Sans',sans-serif; letter-spacing:1px; }
+  .gift-reveal {
+    display:none; max-width:500px; margin:0 auto;
+    background:linear-gradient(145deg,rgba(240,192,64,0.1),rgba(109,40,217,0.28));
+    border:1px solid var(--gd); border-radius:24px; padding:36px 32px;
+  }
+  .gift-reveal.show { display:block; animation:pop-in 0.5s ease; }
+  .gift-reveal h3 { font-family:'Cormorant Garamond',serif; font-size:26px; color:var(--gd); margin-bottom:14px; }
+  .gift-reveal p { color:var(--pl); font-size:15px; line-height:1.9; }
+  @keyframes pop-in { from{transform:scale(0.72);opacity:0} to{transform:scale(1);opacity:1} }
+  #gift-hint { color:rgba(221,214,254,0.5); font-size:14px; margin-bottom:28px; }
+
+  /* ── GAMES ── */
+  .games-tabs { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:36px; }
+  .tab-btn {
+    padding:10px 26px; border-radius:30px;
+    border:1px solid rgba(157,56,240,0.4); background:transparent;
+    color:var(--pl); font-size:13px; cursor:pointer; font-family:'DM Sans',sans-serif; font-weight:500;
+    transition:all 0.3s;
+  }
+  .tab-btn.active, .tab-btn:hover { background:var(--md); color:#fff; border-color:var(--md); }
+  .game-panel { display:none; }
+  .game-panel.active { display:block; }
+  .game-box { background:rgba(46,11,82,0.38); border:1px solid rgba(157,56,240,0.28); border-radius:22px; padding:36px 28px; text-align:center; }
+  .q-label { font-size:11px; letter-spacing:3px; color:var(--gd); text-transform:uppercase; margin-bottom:12px; }
+  .q-text { font-family:'Cormorant Garamond',serif; font-size:22px; color:var(--pl); margin-bottom:26px; line-height:1.5; }
+  .opts-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; max-width:500px; margin:0 auto 18px; }
+  .opt-btn {
+    padding:14px 14px; border-radius:14px;
+    border:1px solid rgba(157,56,240,0.4); background:rgba(26,5,51,0.7);
+    color:var(--pl); cursor:pointer; font-size:13px; font-family:'DM Sans',sans-serif;
+    transition:all 0.25s;
+  }
+  .opt-btn:hover { background:rgba(109,40,217,0.38); border-color:var(--lt); }
+  .opt-btn.correct { background:rgba(34,197,94,0.22); border-color:#22c55e; color:#bbf7d0; }
+  .opt-btn.wrong { background:rgba(239,68,68,0.22); border-color:#ef4444; color:#fecaca; }
+  .score-row { font-size:13px; color:rgba(221,214,254,0.45); }
+  .unlock-card {
+    background:linear-gradient(145deg,rgba(240,192,64,0.1),rgba(109,40,217,0.28));
+    border:1px solid var(--gd); border-radius:18px; padding:26px 22px; margin-top:20px;
+  }
+  .unlock-card h3 { font-family:'Cormorant Garamond',serif; color:var(--gd); font-size:22px; margin-bottom:10px; }
+  .unlock-card p { color:var(--pl); font-size:15px; line-height:1.88; }
+  .game-result { display:none; }
+  .game-result.show { display:block; animation:pop-in 0.5s; }
+  .restart-btn {
+    margin-top:18px; padding:10px 28px; border-radius:30px;
+    border:1px solid rgba(157,56,240,0.42); background:transparent;
+    color:var(--pl); cursor:pointer; font-family:'DM Sans',sans-serif; font-size:14px;
+    transition:all 0.3s;
+  }
+  .restart-btn:hover { background:var(--md); color:#fff; }
+
+  /* match */
+  #match-board { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; max-width:440px; margin:0 auto 16px; }
+  .mc {
+    height:84px; border-radius:14px; cursor:pointer;
+    background:linear-gradient(145deg,rgba(46,11,82,0.9),rgba(26,5,51,0.95));
+    border:1px solid rgba(157,56,240,0.38);
+    display:flex; align-items:center; justify-content:center;
+    font-size:28px; transition:all 0.3s; user-select:none;
+  }
+  .mc .cb { font-size:26px; }
+  .mc .ci { display:none; font-size:28px; }
+  .mc.flipped { background:rgba(109,40,217,0.28); border-color:var(--lt); }
+  .mc.flipped .cb { display:none; } .mc.flipped .ci { display:flex; }
+  .mc.matched { background:rgba(240,192,64,0.18); border-color:var(--gd); cursor:default; }
+  #match-stats { text-align:center; color:rgba(221,214,254,0.55); font-size:14px; margin-bottom:12px; }
+
+  /* quiz */
+  .quiz-opts { display:flex; flex-direction:column; gap:10px; max-width:460px; margin:0 auto 18px; }
+  .qo {
+    padding:14px 20px; border-radius:14px; text-align:left;
+    border:1px solid rgba(157,56,240,0.4); background:rgba(26,5,51,0.7);
+    color:var(--pl); cursor:pointer; font-size:14px; font-family:'DM Sans',sans-serif;
+    transition:all 0.25s;
+  }
+  .qo:hover { background:rgba(109,40,217,0.38); border-color:var(--lt); }
+
+  /* ── LETTER ── */
+  #letter { text-align:center; }
+  .letter-wrap {
+    max-width:720px; margin:0 auto;
+    background:linear-gradient(160deg,rgba(46,11,82,0.55),rgba(26,5,51,0.75));
+    border:1px solid rgba(157,56,240,0.3); border-radius:28px;
+    padding:clamp(36px,6vw,68px) clamp(28px,6vw,64px);
+    text-align:left; position:relative; overflow:hidden;
+  }
+  .letter-wrap::before {
+    content:'❝'; font-size:200px; font-family:'Cormorant Garamond',serif;
+    position:absolute; top:-50px; left:10px;
+    color:rgba(157,56,240,0.07); line-height:1; pointer-events:none; user-select:none;
+  }
+  .letter-dear { font-family:'Cormorant Garamond',serif; font-size:30px; color:var(--gd); margin-bottom:28px; font-weight:600; }
+  .letter-body { font-size:16px; color:var(--tx); line-height:2.1; }
+  .letter-body p { margin-bottom:22px; }
+  .letter-sign { margin-top:36px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:22px; color:var(--pl); line-height:1.7; }
+  .letter-date-line { font-size:11px; color:rgba(221,214,254,0.3); letter-spacing:3px; text-transform:uppercase; margin-top:8px; }
+
+  /* ── COUNTDOWN ── */
+  #countdown { text-align:center; padding:70px 24px 50px; position:relative; z-index:2; }
+  .cd-grid { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin:26px 0; }
+  .cd-box { background:rgba(46,11,82,0.55); border:1px solid rgba(157,56,240,0.32); border-radius:18px; padding:20px 28px; min-width:88px; text-align:center; }
+  .cd-num { font-family:'Cormorant Garamond',serif; font-size:50px; color:var(--gd); font-weight:600; display:block; line-height:1; }
+  .cd-lbl { font-size:10px; color:rgba(221,214,254,0.45); letter-spacing:3px; text-transform:uppercase; margin-top:5px; display:block; }
+  #cd-status { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:22px; color:var(--gd2); }
+
+  /* ── MUSIC BAR ── */
+  .music-bar {
+    position:fixed; bottom:0; left:0; right:0; z-index:499;
+    background:rgba(26,5,51,0.95); backdrop-filter:blur(14px);
+    padding:10px 20px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+    border-top:1px solid rgba(157,56,240,0.22);
+  }
+  .music-icon { font-size:18px; flex-shrink:0; }
+  #song-label { font-size:13px; color:var(--pl); flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .vol-wrap { display:flex; align-items:center; gap:8px; }
+  .vol-wrap label { font-size:11px; color:rgba(221,214,254,0.45); letter-spacing:1px; }
+  input[type=range]#vol {
+    width:80px; cursor:pointer; accent-color:var(--md);
+  }
+  .play-btn {
+    width:38px; height:38px; border-radius:50%;
+    background:var(--md); border:none; color:#fff;
+    font-size:16px; cursor:pointer; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    transition:background 0.2s;
+  }
+  .play-btn:hover { background:var(--lt); }
+
+  /* FOOTER */
+  footer { text-align:center; padding:50px 24px 90px; color:rgba(221,214,254,0.22); font-size:12px; letter-spacing:1px; position:relative; z-index:2; }
+
+  /* CONFETTI */
+  .cf { position:fixed; width:8px; height:8px; top:-10px; border-radius:2px; pointer-events:none; z-index:1000; animation:fall linear forwards; }
+  @keyframes fall { to{transform:translateY(110vh) rotate(720deg);opacity:0} }
+
+  /* FLOATING HEARTS */
+  .fh { position:fixed; pointer-events:none; z-index:1; opacity:0; animation:float-h linear forwards; }
+  @keyframes float-h { 0%{opacity:0.9;transform:translateY(0) scale(1)} 100%{opacity:0;transform:translateY(-110px) scale(0.6)} }
+
+  /* RESPONSIVE */
+  @media(max-width:700px) {
+    .photos-grid { grid-template-columns:1fr 1fr; }
+    .photo-card.wide { grid-column:span 2; aspect-ratio:16/9; }
+    .opts-grid { grid-template-columns:1fr; }
+    #match-board { gap:8px; }
+    .mc { height:68px; }
+  }
+  @media(max-width:440px) {
+    .photos-grid { grid-template-columns:1fr; }
+    .photo-card.wide { grid-column:span 1; aspect-ratio:4/5; }
+    .cd-num { font-size:38px; }
+    .cd-box { padding:16px 20px; min-width:70px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<canvas id="particle-canvas"></canvas>
+
+<!-- ═══ MUSIC BAR ═══
+     Put Anne's favourite song as:  music/song.mp3
+     It will auto-load and play when she clicks ▶
+-->
+<div class="music-bar">
+  <span class="music-icon">🎵</span>
+  <span id="song-label">♡ Anne's Favourite Song — tap ▶ to play</span>
+  <div class="vol-wrap">
+    <label>VOL</label>
+    <input type="range" id="vol" min="0" max="1" step="0.05" value="0.7" oninput="setVol(this.value)">
+  </div>
+  <button class="play-btn" id="play-btn" onclick="togglePlay()">▶</button>
+</div>
+
+<!-- The audio element loads music/song.mp3 automatically -->
+<audio id="bg-audio" src="music/song.mp3" loop preload="auto"></audio>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="#hero">Home</a>
+  <a href="#photos">Photos</a>
+  <a href="#memories">Our Story</a>
+  <a href="#gifts">Surprise</a>
+  <a href="#games">Games</a>
+  <a href="#letter">Love Letter</a>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <span class="hero-tag">✦ Wednesday · April 22nd · 2026 ✦</span>
+    <h1 class="hero-name">Anne Kabby</h1>
+    <p class="hero-sub">is turning 21 today 🎂</p>
+    <p class="hero-quote">"Since January 15th, every single day has been better because you are in it. You are the best thing that has ever happened to me."</p>
+    <p class="hero-since">— from Ray, with every piece of his heart 💜</p>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</section>
+
+<!-- ═══ PHOTOS ═══
+     Place your 6 photos inside the  images/  folder.
+     Name them exactly:  photo1.jpg  photo2.jpg  ... photo6.jpg
+     The site will show them automatically.
+-->
+<section id="photos">
+  <div class="section-wrap">
+    <div class="section-head">
+      <h2>Us, In Pictures</h2>
+      <p>✦ Every photo tells a love story ✦</p>
+      <div class="rule"></div>
+    </div>
+    <div class="photos-grid">
+
+      <div class="photo-card">
+        <img src="images/photo1.jpg" alt="Us — photo 1"
+             onerror="this.style.opacity='0'">
+        <div class="photo-label"><h3>My Cozy Girl 🥺</h3></div>
+        <div class="photo-overlay">
+          <h3>My Cozy Girl 🥺</h3>
+          <p>This look. This exact look is the one that got me. You have no idea how beautiful you are, Anne.</p>
+        </div>
+      </div>
+
+      <div class="photo-card">
+        <img src="images/photo2.jpg" alt="Us — photo 2"
+             onerror="this.style.opacity='0'">
+        <div class="photo-label"><h3>Our Nights Out ✨</h3></div>
+        <div class="photo-overlay">
+          <h3>Our Nights Out ✨</h3>
+          <p>Every time I'm beside you, everything else fades away. It's always just you and me, baby.</p>
+        </div>
+      </div>
+
+      <div class="photo-card">
+        <img src="images/photo3.jpg" alt="Us — photo 3"
+             onerror="this.style.opacity='0'">
+        <div class="photo-label"><h3>That Hill Day 😂💜</h3></div>
+        <div class="photo-overlay">
+          <h3>That Hill Day 😂💜</h3>
+          <p>You meditating in the background while I take a selfie — this is us. I love every chaotic second.</p>
+        </div>
+      </div>
+
+      <!-- Photo 4 spans 2 columns — a wide/landscape photo looks best here -->
+      <div class="photo-card wide">
+        <img src="images/photo4.jpg" alt="Us — photo 4"
+             onerror="this.style.opacity='0'">
+        <div class="photo-label"><h3>Just The Two Of Us 💜</h3></div>
+        <div class="photo-overlay">
+          <h3>Just The Two Of Us 💜</h3>
+          <p>No matter where we are — with you, every place feels like home.</p>
+        </div>
+      </div>
+
+      <div class="photo-card">
+        <img src="images/photo5.jpg" alt="Us — photo 5"
+             onerror="this.style.opacity='0'">
+        <div class="photo-label"><h3>Laughing Together 😂</h3></div>
+        <div class="photo-overlay">
+          <h3>Laughing Together 😂</h3>
+          <p>Your laugh is my absolute favourite sound in the entire world. Never stop.</p>
+        </div>
+      </div>
+
+      <div class="photo-card">
+        <img src="images/photo6.jpg" alt="Us — photo 6"
+             onerror="this.style.opacity='0'">
+        <div class="photo-label"><h3>My Favourite Person 🌙</h3></div>
+        <div class="photo-overlay">
+          <h3>My Favourite Person 🌙</h3>
+          <p>Out of everyone in the world — it's you. It's always been you.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MEMORIES ═══ -->
+<section id="memories">
+  <div class="section-wrap">
+    <div class="section-head">
+      <h2>Our Story</h2>
+      <p>✦ Every chapter of us ✦</p>
+      <div class="rule"></div>
+    </div>
+    <div class="memories-grid" id="mem-grid"></div>
+  </div>
+</section>
+
+<!-- ═══ GIFTS ═══ -->
+<section id="gifts">
+  <div class="section-wrap">
+    <div class="section-head">
+      <h2>🎁 Your Surprise</h2>
+      <p>✦ One box holds something special ✦</p>
+      <div class="rule"></div>
+    </div>
+    <p id="gift-hint">Six boxes. One gift. The rest have love. Choose wisely, baby 💜</p>
+    <div class="gifts-row" id="gifts-row"></div>
+    <div class="gift-reveal" id="gift-reveal">
+      <h3>🌟 You Found It, Anne! 🌟</h3>
+      <p id="gift-text"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GAMES ═══ -->
+<section id="games">
+  <div class="section-wrap">
+    <div class="section-head">
+      <h2>Games For Us 💜</h2>
+      <p>✦ Win to unlock a love message ✦</p>
+      <div class="rule"></div>
+    </div>
+    <div class="games-tabs">
+      <button class="tab-btn active" onclick="switchTab('trivia',this)">💡 Love Trivia</button>
+      <button class="tab-btn" onclick="switchTab('match',this)">🃏 Memory Match</button>
+      <button class="tab-btn" onclick="switchTab('quiz',this)">💌 Love Quiz</button>
+    </div>
+
+    <!-- TRIVIA -->
+    <div class="game-panel active" id="panel-trivia">
+      <div class="game-box">
+        <p class="q-label" id="tq-label">Question 1 of 6</p>
+        <p class="q-text" id="tq-text"></p>
+        <div class="opts-grid" id="tq-opts"></div>
+        <p class="score-row">Score: <span id="t-score">0</span> / 6</p>
+        <div class="game-result" id="t-result">
+          <p style="color:var(--pl);margin-bottom:14px" id="t-result-msg"></p>
+          <div class="unlock-card" id="t-unlock" style="display:none">
+            <h3>💌 Love Message Unlocked!</h3>
+            <p>"Anne Kabby, you know me better than I know myself sometimes. Every quiz, every moment, every laugh — they all lead back to you. I am so deeply, endlessly in love with you. This birthday is the beginning of you owning your twenties, and I will be right by your side for all of it. Happy 21st, my love. — Ray 💜"</p>
+          </div>
+          <button class="restart-btn" onclick="initTrivia()">Play Again 💜</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MEMORY MATCH -->
+    <div class="game-panel" id="panel-match">
+      <div class="game-box">
+        <p id="match-stats">Moves: <span id="m-moves">0</span> &nbsp;|&nbsp; Matched: <span id="m-matched">0</span> / 8</p>
+        <div id="match-board"></div>
+        <button class="restart-btn" id="m-restart" onclick="initMatch()" style="display:none">🔄 New Game</button>
+        <div class="game-result" id="m-result">
+          <div class="unlock-card">
+            <h3>💌 Love Message Unlocked!</h3>
+            <p>"Baby Anne, you matched every single card — just like you matched perfectly with my soul. I never want to un-match you. You are my person, now and always. I love you more than these silly cards could ever say. — Ray 💜"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOVE QUIZ -->
+    <div class="game-panel" id="panel-quiz">
+      <div class="game-box">
+        <p class="q-text" id="quiz-q"></p>
+        <div class="quiz-opts" id="quiz-opts"></div>
+        <div class="game-result" id="q-result">
+          <div class="unlock-card">
+            <h3>💌 Love Message Unlocked!</h3>
+            <p id="q-love-msg"></p>
+          </div>
+          <button class="restart-btn" onclick="initQuiz()">Play Again 💜</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ LETTER ═══ -->
+<section id="letter">
+  <div class="section-wrap">
+    <div class="section-head">
+      <h2>A Letter From Ray</h2>
+      <p>✦ Written with every feeling ✦</p>
+      <div class="rule"></div>
+    </div>
+    <div class="letter-wrap">
+      <p class="letter-dear">My dearest Anne,</p>
+      <div class="letter-body">
+        <p>Today you turn 21. Twenty-one years of the world having you in it — and somehow, impossibly, I get to be the one standing closest to you on this day. I don't take that lightly. Not even for a second.</p>
+        <p>It started on January 15th, this year. That one day changed everything for me. The moment you said yes — the moment you let me in — something inside me settled in a way it never had before. Like I had been searching for something without knowing what it was, and then there you were, and I understood completely.</p>
+        <p>I want you to know what it feels like to love you. It feels like waking up and having something to look forward to. It feels like every ordinary Tuesday being special just because I get to text you good morning. It feels like laughing too hard at stupid things and not caring because you're the one laughing with me. It feels like peace. Real, quiet, beautiful peace. Loving you, Anne, is the easiest thing I have ever done in my life.</p>
+        <p>You are funnier than you think you are. You are stronger than you give yourself credit for. You have this way of existing in a room that makes everything warmer, quieter, and more alive all at the same time. I don't know how you do it. I just know I never want to stop being around it. I never want to stop being around you.</p>
+        <p>I think about all the things that had to go exactly right for us to end up here — and I am grateful for every single one of them. Every detour, every delayed moment, every small coincidence that pointed us toward each other. I wouldn't change any of it. Not one thing.</p>
+        <p>21 is just the beginning, baby. The beginning of you stepping fully into who you are. The beginning of all the big, beautiful things that are waiting for you. And I want to be there — right there, beside you — for every single step of it. For the celebrations and the hard days. For the adventures and the quiet evenings. For all of it, for as long as you'll have me.</p>
+        <p>This page, these games, these words — none of it comes close to what I actually feel. But I hope it makes you smile. I hope it makes you feel, even for a moment, just how completely and thoroughly you are loved by me.</p>
+        <p>Happy 21st Birthday, Anne Kabby. You deserve every good thing this world has to give. And I am going to spend as long as you will let me reminding you of exactly that.</p>
+      </div>
+      <div class="letter-sign">All of my love, forever —<br>Ray 💜</div>
+      <p class="letter-date-line">April 22, 2026</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COUNTDOWN ═══ -->
+<div id="countdown">
+  <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,5vw,44px);background:linear-gradient(120deg,var(--pl),var(--gd));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:4px;">Counting Down For Anne</h2>
+  <div class="cd-grid">
+    <div class="cd-box"><span class="cd-num" id="cd-d">0</span><span class="cd-lbl">Days</span></div>
+    <div class="cd-box"><span class="cd-num" id="cd-h">0</span><span class="cd-lbl">Hours</span></div>
+    <div class="cd-box"><span class="cd-num" id="cd-m">0</span><span class="cd-lbl">Minutes</span></div>
+    <div class="cd-box"><span class="cd-num" id="cd-s">0</span><span class="cd-lbl">Seconds</span></div>
+  </div>
+  <p id="cd-status"></p>
+</div>
+
+<footer>Made with every drop of love by Ray · Happy 21st Birthday, Anne Kabby 💜</footer>
+
+<!-- ═══════════════ JAVASCRIPT ═══════════════ -->
+<script>
+/* ── CURSOR ── */
+const cur = document.getElementById('cursor');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px';
+  cur.style.top  = e.clientY + 'px';
+});
+
+/* ── PARTICLES ── */
+const pc = document.getElementById('particle-canvas');
+const cx = pc.getContext('2d');
+let pts = [];
+function resizePC() { pc.width = window.innerWidth; pc.height = window.innerHeight; }
+resizePC();
+window.addEventListener('resize', resizePC);
+for (let i = 0; i < 130; i++) {
+  pts.push({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    r: Math.random() * 1.3 + 0.3,
+    vx: (Math.random() - 0.5) * 0.28,
+    vy: (Math.random() - 0.5) * 0.28,
+    a: Math.random() * 0.55 + 0.1
+  });
+}
+function animPts() {
+  cx.clearRect(0, 0, pc.width, pc.height);
+  pts.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0 || p.x > pc.width)  p.vx *= -1;
+    if (p.y < 0 || p.y > pc.height) p.vy *= -1;
+    cx.beginPath();
+    cx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    cx.fillStyle = `rgba(221,214,254,${p.a})`;
+    cx.fill();
+  });
+  requestAnimationFrame(animPts);
+}
+animPts();
+
+/* ── MEMORIES ── */
+const mems = [
+  {
+    e: '🌹', t: 'The Day Everything Changed', d: 'January 15, 2026',
+    txt: 'January 15th — the day you said yes and my whole universe rearranged itself around you. I still smile every single time I think about that moment. I always will, no matter how much time passes.'
+  },
+  {
+    e: '🌙', t: 'Our First Late Night Call', d: 'Early 2026',
+    txt: 'We talked until 3 AM and I had absolutely no idea where the time went. I just knew I never wanted to hang up. That call was when I realised — I was already completely in trouble. And I didn\'t mind at all.'
+  },
+  {
+    e: '😂', t: 'When I Knew For Sure', d: 'Our early days',
+    txt: 'You laughed at my terrible joke — the kind that nobody actually laughs at — and in that moment I thought: yep, she\'s the one. That laugh is my favourite sound in the entire world. Bar none.'
+  },
+  {
+    e: '🍕', t: 'Our First Date', d: '2026',
+    txt: 'I was more nervous than I\'d ever admit to you. But the second I saw you, everything just became easy. Natural. Like we had done this a thousand times before. I never wanted it to end.'
+  },
+  {
+    e: '☀️', t: 'Every Good Morning', d: 'Every single day',
+    txt: 'The very first thing I think of every morning is you. Your good morning texts set the tone for my whole day before it\'s even really started. You have no idea what that means to me. It means everything.'
+  },
+  {
+    e: '💜', t: 'Just Being With You', d: 'Always',
+    txt: 'No matter where we are or what we\'re doing — a random walk, a quiet evening, anywhere at all — being with you feels like home. You are my favourite place in the entire world, Anne Kabby.'
+  }
+];
+const mg = document.getElementById('mem-grid');
+mems.forEach(m => {
+  mg.innerHTML += `
+    <div class="mem-card">
+      <span class="mem-emoji">${m.e}</span>
+      <h3 class="mem-title">${m.t}</h3>
+      <p class="mem-text">${m.txt}</p>
+      <p class="mem-date">${m.d}</p>
+    </div>`;
+});
+
+/* ── GIFT BOXES ── */
+const loveEmojis = ['💜', '🌹', '✨', '💫', '🦋'];
+let giftIdx = Math.floor(Math.random() * 6);
+let emojiPool = [...loveEmojis];
+const gr = document.getElementById('gifts-row');
+for (let i = 0; i < 6; i++) {
+  const b = document.createElement('div');
+  b.className = 'gift-box';
+  b.id = 'gb' + i;
+  b.innerHTML = `<div>🎁</div><div class="box-num">Box ${i + 1}</div>`;
+  b.onclick = () => openGift(i);
+  gr.appendChild(b);
+}
+function openGift(i) {
+  const b = document.getElementById('gb' + i);
+  if (b.classList.contains('opened')) return;
+  b.classList.add('opened');
+  if (i === giftIdx) {
+    b.innerHTML = '<div style="font-size:38px">🎀</div><div class="box-num" style="color:var(--gd)">Your Gift!</div>';
+    document.getElementById('gift-text').textContent =
+      "Ray has a very special surprise waiting for you in person, Anne! This is just the beginning of your birthday. Tonight is all about you — get ready, baby. 🎁💜";
+    document.getElementById('gift-reveal').classList.add('show');
+    launchConfetti(); launchConfetti();
+  } else {
+    const e = emojiPool.length ? emojiPool.splice(0, 1)[0] : '💜';
+    b.innerHTML = `<div style="font-size:36px">${e}</div><div class="box-num">Empty 💜</div>`;
+  }
+}
+
+/* ── CONFETTI ── */
+function launchConfetti() {
+  const cols = ['#9f56f0', '#f0c040', '#ddd6fe', '#6d28d9', '#fde68a', '#fff'];
+  for (let i = 0; i < 70; i++) {
+    const el = document.createElement('div');
+    el.className = 'cf';
+    el.style.cssText = `left:${Math.random()*100}vw;background:${cols[Math.floor(Math.random()*cols.length)]};animation-duration:${1.5+Math.random()*2.5}s;animation-delay:${Math.random()*0.5}s;border-radius:${Math.random()>0.5?'50%':'2px'}`;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 5000);
+  }
+}
+
+/* ── TRIVIA ── */
+const triviaData = [
+  { q: 'What special date did Ray and Anne start dating?',
+    o: ['December 25', 'January 15', 'February 14', 'March 8'], a: 1 },
+  { q: 'What does Ray say loving Anne feels like?',
+    o: ['Hard work', 'The easiest thing ever', 'Complicated', 'Adventurous'], a: 1 },
+  { q: 'What city are Ray and Anne in?',
+    o: ['Nairobi', 'Kisumu', 'Mombasa', 'Eldoret'], a: 1 },
+  { q: 'How old is Anne turning on this birthday?',
+    o: ['19', '20', '21', '22'], a: 2 },
+  { q: 'What day of the week is Anne\'s birthday?',
+    o: ['Monday', 'Tuesday', 'Wednesday', 'Saturday'], a: 2 },
+  { q: 'What colour theme did Ray choose to celebrate Anne?',
+    o: ['Pink', 'Blue', 'Purple', 'Gold'], a: 2 }
+];
+let tIdx = 0, tScore = 0;
+function initTrivia() {
+  tIdx = 0; tScore = 0;
+  document.getElementById('t-score').textContent = 0;
+  document.getElementById('t-result').classList.remove('show');
+  document.getElementById('t-unlock').style.display = 'none';
+  loadTQ();
+}
+function loadTQ() {
+  if (tIdx >= triviaData.length) { showTResult(); return; }
+  const q = triviaData[tIdx];
+  document.getElementById('tq-label').textContent = `Question ${tIdx + 1} of ${triviaData.length}`;
+  document.getElementById('tq-text').textContent = q.q;
+  const og = document.getElementById('tq-opts'); og.innerHTML = '';
+  q.o.forEach((o, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn'; btn.textContent = o;
+    btn.onclick = () => {
+      og.querySelectorAll('.opt-btn').forEach(b => b.disabled = true);
+      og.querySelectorAll('.opt-btn')[q.a].classList.add('correct');
+      if (i === q.a) { tScore++; document.getElementById('t-score').textContent = tScore; }
+      else btn.classList.add('wrong');
+      tIdx++;
+      setTimeout(loadTQ, 1000);
+    };
+    og.appendChild(btn);
+  });
+}
+function showTResult() {
+  document.getElementById('tq-opts').innerHTML = '';
+  document.getElementById('tq-text').textContent = '';
+  document.getElementById('tq-label').textContent = '';
+  document.getElementById('t-result').classList.add('show');
+  document.getElementById('t-result-msg').textContent =
+    `You scored ${tScore}/6! ${tScore >= 5 ? 'Perfect! You know us so well 🎉' : tScore >= 3 ? 'Great job, baby! 💜' : 'Keep trying — you know me! 😄'}`;
+  if (tScore >= 3) { document.getElementById('t-unlock').style.display = 'block'; launchConfetti(); }
+}
+initTrivia();
+
+/* ── MEMORY MATCH ── */
+const matchSet = ['💜','🌹','✨','💫','🦋','🌙','🌸','🎀'];
+let mFlipped = [], mMatched = 0, mMoves = 0, mCanFlip = true;
+function initMatch() {
+  const pairs = [...matchSet, ...matchSet].sort(() => Math.random() - 0.5);
+  mFlipped = []; mMatched = 0; mMoves = 0; mCanFlip = true;
+  document.getElementById('m-moves').textContent = 0;
+  document.getElementById('m-matched').textContent = 0;
+  document.getElementById('m-result').classList.remove('show');
+  document.getElementById('m-restart').style.display = 'none';
+  const bd = document.getElementById('match-board'); bd.innerHTML = '';
+  pairs.forEach((e, i) => {
+    const c = document.createElement('div'); c.className = 'mc'; c.dataset.v = e;
+    c.innerHTML = `<span class="cb">💌</span><span class="ci">${e}</span>`;
+    c.onclick = () => flipMC(c);
+    bd.appendChild(c);
+  });
+}
+function flipMC(c) {
+  if (!mCanFlip || c.classList.contains('flipped') || c.classList.contains('matched')) return;
+  c.classList.add('flipped'); mFlipped.push(c);
+  if (mFlipped.length === 2) {
+    mCanFlip = false; mMoves++;
+    document.getElementById('m-moves').textContent = mMoves;
+    if (mFlipped[0].dataset.v === mFlipped[1].dataset.v) {
+      mFlipped.forEach(x => x.classList.add('matched'));
+      mMatched++; document.getElementById('m-matched').textContent = mMatched;
+      mFlipped = []; mCanFlip = true;
+      if (mMatched === 8) {
+        document.getElementById('m-restart').style.display = 'inline-block';
+        setTimeout(() => { document.getElementById('m-result').classList.add('show'); launchConfetti(); }, 400);
+      }
+    } else {
+      setTimeout(() => { mFlipped.forEach(x => x.classList.remove('flipped')); mFlipped = []; mCanFlip = true; }, 900);
+    }
+  }
+}
+initMatch();
+
+/* ── LOVE QUIZ ── */
+const quizData = [
+  {
+    q: 'If you had to describe our relationship in one word, which would it be?',
+    o: ['Magical ✨', 'Perfect 💜', 'Adventurous 🌍', 'Home 🏡'],
+    msgs: [
+      'That\'s so magical — just like everything about you is to me, Anne. I love you more than words. — Ray 💜',
+      'You\'re right, baby. Us together IS perfect. Every single imperfect moment of it. — Ray 💜',
+      'Every day with you is an adventure I never ever want to end. Let\'s keep exploring. — Ray 💜',
+      'You are my home, Anne. The one place I always want to come back to. Always. — Ray 💜'
+    ]
+  },
+  {
+    q: 'What do you love most about Ray?',
+    o: ['His love for me 💜', 'His sense of humour 😂', 'His loyalty 🤝', 'Everything about him 💫'],
+    msgs: [
+      'And I love YOU, Anne. More than I will ever be able to say. — Ray 💜',
+      'I will keep making you laugh for as long as you let me. I promise. — Ray 💜',
+      'I\'ll always, always have your back. That will never, ever change. — Ray 💜',
+      'Everything about YOU is my favourite thing in the entire world. — Ray 💜'
+    ]
+  },
+  {
+    q: 'What\'s the vibe of us as a couple?',
+    o: ['Soft and sweet 🌸', 'Chaotic and funny 😂', 'Deep and real 💫', 'All of the above 💜'],
+    msgs: [
+      'Soft and sweet — just like you are, Anne. That\'s exactly what you bring to my life. — Ray 💜',
+      'Haha yes! Life with you is genuinely never boring and I love every second of it. — Ray 💜',
+      'The realest, deepest love — no pretending, no performance. Just us. — Ray 💜',
+      'We\'re literally EVERYTHING and I love every single bit of it with you. — Ray 💜'
+    ]
+  }
+];
+let qIdx = 0;
+function initQuiz() { qIdx = 0; document.getElementById('q-result').classList.remove('show'); loadQQ(); }
+function loadQQ() {
+  const q = quizData[qIdx];
+  document.getElementById('quiz-q').textContent = q.q;
+  const el = document.getElementById('quiz-opts'); el.innerHTML = '';
+  q.o.forEach((o, i) => {
+    const b = document.createElement('button'); b.className = 'qo'; b.textContent = o;
+    b.onclick = () => {
+      const msg = q.msgs[i];
+      qIdx++;
+      if (qIdx < quizData.length) { loadQQ(); }
+      else {
+        document.getElementById('q-love-msg').textContent = msg + '\n\nHappy 21st Birthday, Anne Kabby. — Ray 💜';
+        document.getElementById('q-result').classList.add('show');
+        launchConfetti();
+      }
+    };
+    el.appendChild(b);
+  });
+}
+initQuiz();
+
+/* ── GAME TABS ── */
+function switchTab(id, el) {
+  document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  el.classList.add('active');
+}
+
+/* ── COUNTDOWN ── */
+function updateCD() {
+  const target = new Date('2026-04-22T00:00:00');
+  const now    = new Date();
+  const diff   = target - now;
+  if (diff <= 0) {
+    ['d','h','m','s'].forEach(k => document.getElementById('cd-' + k).textContent = '0');
+    document.getElementById('cd-status').textContent = "🎉 Today is Anne's 21st Birthday! Happy Birthday, my love! 💜";
+    return;
+  }
+  document.getElementById('cd-d').textContent = Math.floor(diff / 86400000);
+  document.getElementById('cd-h').textContent = Math.floor((diff % 86400000) / 3600000);
+  document.getElementById('cd-m').textContent = Math.floor((diff % 3600000) / 60000);
+  document.getElementById('cd-s').textContent = Math.floor((diff % 60000) / 1000);
+  const days = Math.floor(diff / 86400000);
+  document.getElementById('cd-status').textContent =
+    days === 0 ? "Today is the day! 🎂" : `${days} day${days === 1 ? '' : 's'} until Anne's birthday 💜`;
+}
+setInterval(updateCD, 1000);
+updateCD();
+
+/* ── MUSIC PLAYER ── */
+let playing = false;
+const audio  = document.getElementById('bg-audio');
+const playBtn = document.getElementById('play-btn');
+const songLabel = document.getElementById('song-label');
+
+// Try to detect if music/song.mp3 actually exists
+audio.addEventListener('canplaythrough', () => {
+  songLabel.textContent = "♡ Anne's Favourite Song — tap ▶ to play";
+});
+audio.addEventListener('error', () => {
+  songLabel.textContent = "♡ Add song.mp3 to the music/ folder";
+});
+
+function togglePlay() {
+  if (audio.error) {
+    alert('Add Anne\'s favourite song as music/song.mp3 inside your project folder, then reopen the site.');
+    return;
+  }
+  if (playing) {
+    audio.pause(); playing = false; playBtn.textContent = '▶';
+    songLabel.textContent = "♡ Anne's Favourite Song — tap ▶ to play";
+  } else {
+    audio.play().then(() => {
+      playing = true; playBtn.textContent = '⏸';
+      songLabel.textContent = "♪ Playing Anne's favourite song...";
+    }).catch(() => {
+      alert('Add Anne\'s favourite song as music/song.mp3 and reopen the site.');
+    });
+  }
+}
+
+function setVol(v) { audio.volume = v; }
+audio.volume = 0.7;
+
+/* ── FLOATING HEARTS ── */
+const fhArr = ['💜','🌹','✨','💫','🌸'];
+setInterval(() => {
+  const h = document.createElement('div'); h.className = 'fh';
+  h.textContent = fhArr[Math.floor(Math.random() * fhArr.length)];
+  h.style.cssText = `left:${Math.random()*100}vw;bottom:60px;font-size:${16+Math.random()*14}px;animation-duration:${2.5+Math.random()*2}s`;
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 5000);
+}, 3200);
+</script>
+</body>
+</html>
